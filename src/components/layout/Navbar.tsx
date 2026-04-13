@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
           <Link to="/" className="flex items-center group">
             <img 
               src={logo} 
-              alt="EduConnect" 
+              alt="Profolib" 
               className="h-12 w-auto object-contain transition-all duration-300 group-hover:scale-105"
             />
           </Link>

@@ -233,7 +233,7 @@ const AuthPage: React.FC = () => {
           <a href="/" className="inline-block">
             <img 
               src={logo} 
-              alt="EduConnect" 
+              alt="Profolib" 
               className="h-20 w-auto mx-auto object-contain transition-all duration-300 hover:scale-105"
             />
           </a>
@@ -593,7 +593,7 @@ const AuthPage: React.FC = () => {
           className="text-center mt-8"
         >
           <span className="text-gray-400 font-medium">
-            EduConnect - Votre plateforme de cours en visio
+            Profolib - Votre plateforme de cours en visio
           </span>
         </motion.div>
       </div>

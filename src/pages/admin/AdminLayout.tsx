@@ -42,7 +42,7 @@ const AdminLayout: React.FC = () => {
               <GraduationCap className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="font-bold text-lg text-gray-900">EduConnect</h1>
+              <h1 className="font-bold text-lg text-gray-900">Profolib</h1>
               <p className="text-xs text-gray-500">Administration</p>
             </div>
           </div>
