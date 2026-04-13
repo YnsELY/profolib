@@ -4,7 +4,6 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
 // Pages
-import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
 import { RequestPage, WaitingPage, SessionPage } from './pages/student';
 import { DashboardPage, SessionPage as TeacherSessionPage } from './pages/teacher';
@@ -46,8 +45,8 @@ const AuthRedirect: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      {/* Public routes */}
-      <Route path="/" element={<LandingPage />} />
+      {/* Public routes - root redirects to auth */}
+      <Route path="/" element={<Navigate to="/auth" replace />} />
       <Route
         path="/auth"
         element={

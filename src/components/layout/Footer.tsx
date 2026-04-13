@@ -30,18 +30,8 @@ const Footer: React.FC = () => {
             <h3 className="text-white font-semibold mb-6">Liens rapides</h3>
             <ul className="space-y-4">
               <li>
-                <Link to="/" className="hover:text-primary-400 transition-colors">
-                  Accueil
-                </Link>
-              </li>
-              <li>
-                <Link to="/#how-it-works" className="hover:text-primary-400 transition-colors">
-                  Comment ca marche
-                </Link>
-              </li>
-              <li>
                 <Link to="/auth" className="hover:text-primary-400 transition-colors">
-                  Connexion
+                  Connexion / Inscription
                 </Link>
               </li>
             </ul>

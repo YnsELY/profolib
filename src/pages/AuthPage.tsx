@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  GraduationCap,
   BookOpen,
   Users,
   Mail,
@@ -23,6 +22,7 @@ import { useAuth } from '../context/AuthContext';
 import { Button, Input, Card } from '../components/ui';
 import { SUBJECTS, UserRole } from '../types';
 import { submitTeacherRegistration } from '../services/admin';
+import logo from '../logo.png';
 
 type AuthMode = 'login' | 'register';
 type RegistrationStep = 'account' | 'profile' | 'submitted';
@@ -174,7 +174,7 @@ const AuthPage: React.FC = () => {
   // Écran de confirmation après soumission professeur
   if (step === 'submitted') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-white flex items-center justify-center p-4">
         <div className="relative w-full max-w-lg">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -216,11 +216,11 @@ const AuthPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-200/30 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-300/20 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-200/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-300/5 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
       </div>
 
       <div className="relative w-full max-w-lg">
@@ -230,16 +230,12 @@ const AuthPage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
         >
-          <a href="/" className="inline-flex items-center gap-3 group">
-            <div className="relative">
-              <div className="absolute inset-0 bg-primary-400 rounded-xl blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
-              <div className="relative bg-gradient-to-br from-primary-600 to-primary-500 p-3 rounded-xl shadow-lg">
-                <GraduationCap className="w-8 h-8 text-white" />
-              </div>
-            </div>
-            <span className="text-2xl font-bold text-gray-900">
-              Edu<span className="text-primary-600">Connect</span>
-            </span>
+          <a href="/" className="inline-block">
+            <img 
+              src={logo} 
+              alt="EduConnect" 
+              className="h-20 w-auto mx-auto object-contain transition-all duration-300 hover:scale-105"
+            />
           </a>
         </motion.div>
 
@@ -596,12 +592,9 @@ const AuthPage: React.FC = () => {
           transition={{ delay: 0.3 }}
           className="text-center mt-8"
         >
-          <a
-            href="/"
-            className="text-gray-500 hover:text-primary-600 font-medium transition-colors"
-          >
-            Retour a l'accueil
-          </a>
+          <span className="text-gray-400 font-medium">
+            EduConnect - Votre plateforme de cours en visio
+          </span>
         </motion.div>
       </div>
     </div>
