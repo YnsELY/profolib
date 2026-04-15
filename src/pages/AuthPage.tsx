@@ -217,13 +217,7 @@ const AuthPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white flex items-start sm:items-center justify-center p-4 pt-6 sm:pt-4">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-200/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-300/5 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
-      </div>
-
-      <div className="relative w-full max-w-lg">
+      <div className="relative w-full max-w-lg mt-8 sm:mt-0">
         {/* Logo */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
