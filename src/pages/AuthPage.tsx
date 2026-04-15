@@ -228,7 +228,7 @@ const AuthPage: React.FC = () => {
             <img
               src={logo}
               alt="Profolib"
-              className="h-40 w-auto mx-auto object-contain transition-all duration-300 hover:scale-105"
+              className="h-32 w-auto mx-auto object-contain transition-all duration-300 hover:scale-105"
             />
           </a>
         </motion.div>
