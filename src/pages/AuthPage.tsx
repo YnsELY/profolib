@@ -22,7 +22,7 @@ import { useAuth } from '../context/AuthContext';
 import { Button, Input, Card } from '../components/ui';
 import { SUBJECTS, UserRole } from '../types';
 import { submitTeacherRegistration } from '../services/admin';
-import logo from '../logo.png';
+import logo from '../assets/profolib-logo.jpeg';
 
 type AuthMode = 'login' | 'register';
 type RegistrationStep = 'account' | 'profile' | 'submitted';
