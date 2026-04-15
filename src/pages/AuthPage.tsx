@@ -222,7 +222,7 @@ const AuthPage: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-1 sm:mb-3"
+          className="text-center mb-0 sm:mb-1"
         >
           <a href="/" className="inline-block">
             <img
