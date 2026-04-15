@@ -231,10 +231,10 @@ const AuthPage: React.FC = () => {
           className="text-center mb-8"
         >
           <a href="/" className="inline-block">
-            <img 
-              src={logo} 
-              alt="Profolib" 
-              className="h-20 w-auto mx-auto object-contain transition-all duration-300 hover:scale-105"
+            <img
+              src={logo}
+              alt="Profolib"
+              className="h-40 w-auto mx-auto object-contain transition-all duration-300 hover:scale-105"
             />
           </a>
         </motion.div>
