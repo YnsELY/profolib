@@ -216,7 +216,7 @@ const AuthPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+    <div className="min-h-screen bg-white flex items-start sm:items-center justify-center p-4 pt-6 sm:pt-4">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary-200/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
@@ -228,7 +228,7 @@ const AuthPage: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-3"
+          className="text-center mb-1 sm:mb-3"
         >
           <a href="/" className="inline-block">
             <img
