@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   BarChart3,
@@ -18,7 +18,8 @@ import { Layout } from '../../components/layout';
 import { Button, Card, Loader, Select } from '../../components/ui';
 import { useAuth } from '../../context/AuthContext';
 import { CourseRequest, LEVELS, SUBJECTS, PRICING_TIERS, getPricingByDuration } from '../../types';
-import { createCourseRequest, getStudentRequests } from '../../services/requests';
+import { getStudentRequests } from '../../services/requests';
+import { createCheckoutSession } from '../../services/stripe';
 
 type DashboardSection = 'request' | 'history' | 'stats' | 'account';
 type StatsTimeframe = 'week' | 'month' | 'year';
@@ -42,6 +43,8 @@ const RequestPage: React.FC = () => {
 
   const { currentUser, signOut } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const paymentCancelled = searchParams.get('cancelled') === 'true';
 
   const subjectOptions = [
     { value: '', label: 'Selectionnez une matiere' },
@@ -242,7 +245,8 @@ const RequestPage: React.FC = () => {
     });
 
     try {
-      const requestId = await createCourseRequest({
+      // Creer une session Stripe Checkout et rediriger vers la page de paiement
+      const { url } = await createCheckoutSession({
         studentId: currentUser.id,
         studentName: currentUser.name,
         subject,
@@ -254,14 +258,13 @@ const RequestPage: React.FC = () => {
         platformCommission: selectedPricing.platformCommission,
       });
 
-      console.info('[RequestPage] submit:success', { requestId });
-      navigate(`/student/waiting/${requestId}`);
+      console.info('[RequestPage] checkout:redirect');
+      // Redirection vers Stripe Checkout
+      window.location.href = url;
     } catch (err) {
       console.error('[RequestPage] submit:error', err);
-      setError('Une erreur est survenue. Veuillez reessayer.');
-    } finally {
+      setError('Une erreur est survenue lors de la creation du paiement. Veuillez reessayer.');
       setLoading(false);
-      console.info('[RequestPage] submit:done');
     }
   };
 
@@ -489,6 +492,12 @@ const RequestPage: React.FC = () => {
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent hover:border-gray-300 resize-none"
                         />
                       </div>
+
+                      {paymentCancelled && (
+                        <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-700 text-sm">
+                          Le paiement a ete annule. Vous pouvez reessayer quand vous le souhaitez.
+                        </div>
+                      )}
 
                       {error && (
                         <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">

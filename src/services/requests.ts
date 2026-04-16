@@ -91,6 +91,7 @@ const fetchPendingRequests = async (teacherSubjects: string[]): Promise<CourseRe
     .from('course_requests')
     .select('*')
     .eq('status', 'pending')
+    .eq('payment_status', 'paid')
     .order('created_at', { ascending: false });
 
   if (teacherSubjects.length > 0) {
