@@ -112,6 +112,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     name: string;
     role: UserRole;
     subjects: string[] | null;
+    approved: boolean | null;
     created_at: string | null;
   }): User => ({
     id: profile.id,
@@ -119,6 +120,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     name: profile.name,
     role: profile.role,
     subjects: profile.subjects ?? undefined,
+    approved: profile.approved ?? true,
     createdAt: profile.created_at ? new Date(profile.created_at) : new Date(),
   });
 
@@ -137,7 +139,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const { data, error } = await requestWithTimeout(
       supabase
         .from('profiles')
-        .select('id,email,name,role,subjects,created_at')
+        .select('id,email,name,role,subjects,approved,created_at')
         .eq('id', user.id)
         .maybeSingle(),
       'profiles.select'
@@ -168,8 +170,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           name,
           role,
           subjects: role === 'teacher' ? subjects : null,
+          approved: role === 'teacher' ? false : true,
         })
-        .select('id,email,name,role,subjects,created_at')
+        .select('id,email,name,role,subjects,approved,created_at')
         .single(),
       'profiles.insert'
     );
@@ -405,6 +408,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       name,
       role,
       subjects: role === 'teacher' ? subjects : undefined,
+      approved: role === 'teacher' ? false : true,
       createdAt: new Date(),
     };
     setCurrentUser(fallbackUser);

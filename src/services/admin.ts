@@ -154,7 +154,8 @@ export const approveRegistration = async (
     return;
   }
 
-  const { error } = await supabase
+  // 1. Mettre a jour la demande d'inscription et recuperer l'email
+  const { data: registration, error } = await supabase
     .from('teacher_registrations')
     .update({
       status: 'approved',
@@ -162,9 +163,37 @@ export const approveRegistration = async (
       review_notes: notes,
       reviewed_at: new Date().toISOString(),
     })
-    .eq('id', registrationId);
+    .eq('id', registrationId)
+    .select('email')
+    .single();
 
   if (error) throw error;
+
+  // 2. Activer le profil du professeur (approved = true)
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .update({ approved: true })
+    .eq('email', registration.email)
+    .eq('role', 'teacher')
+    .select('id')
+    .maybeSingle();
+
+  if (profileError) {
+    console.error('[admin] approveRegistration:profile:error', profileError);
+  }
+
+  // 3. Creer le wallet du professeur si son profil existe
+  if (profile) {
+    const { error: walletError } = await supabase
+      .from('teacher_wallets')
+      .upsert(
+        { teacher_id: profile.id, balance: 0, total_earned: 0, total_withdrawn: 0 },
+        { onConflict: 'teacher_id' }
+      );
+    if (walletError) {
+      console.error('[admin] approveRegistration:wallet:error', walletError);
+    }
+  }
 };
 
 export const rejectRegistration = async (

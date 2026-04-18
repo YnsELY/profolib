@@ -100,16 +100,23 @@ const AuthPage: React.FC = () => {
         }
         
         if (role === 'teacher') {
-          // Pour les professeurs : créer la demande d'inscription
-          await submitTeacherRegistration({
-            email,
-            name,
-            subjects: selectedSubjects,
-            diplomas,
-            experience,
-            motivation,
-          });
-          setStep('submitted');
+          // Creer le compte auth avec approved=false
+          await signUp(email, password, name, role, selectedSubjects);
+          // Creer la demande admin pour validation (informations detaillees)
+          try {
+            await submitTeacherRegistration({
+              email,
+              name,
+              subjects: selectedSubjects,
+              diplomas,
+              experience,
+              motivation,
+            });
+          } catch {
+            // Le compte est cree, la demande admin a echoue - pas bloquant
+          }
+          // L'utilisateur est maintenant connecte avec approved=false
+          // ProtectedRoute le redirigera vers la page d'attente
         } else {
           // Pour les élèves : inscription directe
           await signUp(email, password, name, role, selectedSubjects);
